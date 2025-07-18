@@ -2,7 +2,7 @@ package alessandrodigiovanni.gestioneprenotazioni.entities;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ public class Edificio {
     private long id;
     private String nome;
     private String indirizzo;
-    private String città;
-    @OneToMany(mappedBy = "edifici",cascade = CascadeType.ALL)
+    private String citta;
+    @OneToMany(mappedBy = "edificio",cascade = CascadeType.ALL)
     private List<Postazione> postazioni;
 
-    public Edificio(String nome, String indirizzo, String città, List<Postazione> postazioni) {
+    public Edificio(String nome, String indirizzo, String citta, List<Postazione> postazioni) {
         this.nome = nome;
         this.indirizzo = indirizzo;
-        this.città = città;
+        this.citta = citta;
         this.postazioni = postazioni;
     }
 
@@ -38,8 +38,8 @@ public class Edificio {
         return indirizzo;
     }
 
-    public String getCittà() {
-        return città;
+    public String getCitta() {
+        return citta;
     }
 
     public List<Postazione> getPostazioni() {
@@ -50,8 +50,8 @@ public class Edificio {
         this.postazioni = postazioni;
     }
 
-    public void setCittà(String città) {
-        this.città = città;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public void setIndirizzo(String indirizzo) {
@@ -68,7 +68,7 @@ public class Edificio {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", indirizzo='" + indirizzo + '\'' +
-                ", città='" + città + '\'' +
+                ", citta='" + citta + '\'' +
                 ", postazioni=" + postazioni +
                 '}';
     }

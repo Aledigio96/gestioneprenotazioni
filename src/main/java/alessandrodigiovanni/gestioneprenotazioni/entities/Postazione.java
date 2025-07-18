@@ -2,10 +2,14 @@ package alessandrodigiovanni.gestioneprenotazioni.entities;
 
 import alessandrodigiovanni.gestioneprenotazioni.enums.Tipo;
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
+
+
+import java.util.List;
 
 @Entity
 @Table(name = "postazioni")
+@NoArgsConstructor
 public class Postazione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,12 +21,22 @@ public class Postazione {
     @ManyToOne
     @JoinColumn(name = "id_edificio")
     private Edificio edificio;
+    @OneToMany(mappedBy = "postazione")
+    private List<Prenotazione> prenotazioni;
 
     public Postazione(String descrizione, Tipo tipo, int numMaxOccupanti, Edificio edificio) {
         this.descrizione = descrizione;
         this.tipo = tipo;
         this.numMaxOccupanti = numMaxOccupanti;
         this.edificio = edificio;
+    }
+
+    public List<Prenotazione> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+        this.prenotazioni = prenotazioni;
     }
 
     public long getId() {
@@ -69,6 +83,7 @@ public class Postazione {
                 ", tipo=" + tipo +
                 ", numMaxOccupanti=" + numMaxOccupanti +
                 ", edificio=" + edificio +
+                ", prenotazioni=" + prenotazioni +
                 '}';
     }
 }

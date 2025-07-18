@@ -2,7 +2,9 @@ package alessandrodigiovanni.gestioneprenotazioni.entities;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
+
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -15,12 +17,22 @@ public class Utente {
     private String cognome;
     private String username;
     private String email;
+    @OneToMany(mappedBy = "utente")
+    private List<Prenotazione> prenotazioni;
 
     public Utente(String nome, String cognome, String username, String email) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
         this.email = email;
+    }
+
+    public List<Prenotazione> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+        this.prenotazioni = prenotazioni;
     }
 
     public long getId() {
@@ -68,6 +80,7 @@ public class Utente {
                 ", cognome='" + cognome + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", prenotazioni=" + prenotazioni +
                 '}';
     }
 }
