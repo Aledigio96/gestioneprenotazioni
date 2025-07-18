@@ -19,11 +19,11 @@ public class Edificio {
     @OneToMany(mappedBy = "edificio",cascade = CascadeType.ALL)
     private List<Postazione> postazioni;
 
-    public Edificio(String nome, String indirizzo, String citta, List<Postazione> postazioni) {
+    public Edificio(String nome, String indirizzo, String citta) {
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.citta = citta;
-        this.postazioni = postazioni;
+
     }
 
     public long getId() {
@@ -69,7 +69,6 @@ public class Edificio {
                 ", nome='" + nome + '\'' +
                 ", indirizzo='" + indirizzo + '\'' +
                 ", citta='" + citta + '\'' +
-                ", postazioni=" + postazioni +
                 '}';
     }
 }

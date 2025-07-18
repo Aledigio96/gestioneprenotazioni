@@ -1,7 +1,9 @@
 package alessandrodigiovanni.gestioneprenotazioni.services;
 
+import alessandrodigiovanni.gestioneprenotazioni.entities.Edificio;
 import alessandrodigiovanni.gestioneprenotazioni.entities.Postazione;
 import alessandrodigiovanni.gestioneprenotazioni.enums.Tipo;
+import alessandrodigiovanni.gestioneprenotazioni.exceptions.NotFoundException;
 import alessandrodigiovanni.gestioneprenotazioni.exceptions.ValidationException;
 import alessandrodigiovanni.gestioneprenotazioni.repositories.PostazioniRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,14 @@ public class PostazioniService {
       postazioniRepository.save(newPostazione);
     }
     public List<Postazione> findByTipoAndEdificioCitta(Tipo tipo, String citta){
-        List<Postazione> postazioni=postazioniRepository.findByTipoAndEdificioCitta(tipo,citta);
+        List<Postazione> postazioni=postazioniRepository.findByTipoAndEdificio_Citta(tipo,citta);
         System.out.println("Postazioni trovate per tipo: " + tipo + " e città: " + citta);
         postazioni.forEach(System.out::println);
         return postazioni;
+    }
+    public Postazione findById(long postazioneId) {
+        return postazioniRepository.findById(postazioneId).orElseThrow(() -> new
+                NotFoundException(postazioneId));
     }
 
 }

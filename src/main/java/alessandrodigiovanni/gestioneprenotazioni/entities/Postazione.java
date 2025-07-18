@@ -83,7 +83,6 @@ public class Postazione {
                 ", tipo=" + tipo +
                 ", numMaxOccupanti=" + numMaxOccupanti +
                 ", edificio=" + edificio +
-                ", prenotazioni=" + prenotazioni +
                 '}';
     }
 }

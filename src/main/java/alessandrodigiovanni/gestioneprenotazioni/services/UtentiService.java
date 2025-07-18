@@ -1,6 +1,8 @@
 package alessandrodigiovanni.gestioneprenotazioni.services;
 
+import alessandrodigiovanni.gestioneprenotazioni.entities.Postazione;
 import alessandrodigiovanni.gestioneprenotazioni.entities.Utente;
+import alessandrodigiovanni.gestioneprenotazioni.exceptions.NotFoundException;
 import alessandrodigiovanni.gestioneprenotazioni.exceptions.ValidationException;
 import alessandrodigiovanni.gestioneprenotazioni.repositories.UtentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +19,8 @@ public class UtentiService {
         utentiRepository.save(newUtente);
         System.out.println("Utente creato con successo!");
     }
-
+    public Utente findById(long utenteId) {
+        return utentiRepository.findById(utenteId).orElseThrow(() -> new
+                NotFoundException(utenteId));
+    }
 }
