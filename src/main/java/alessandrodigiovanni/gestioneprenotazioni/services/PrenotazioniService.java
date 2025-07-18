@@ -2,7 +2,8 @@ package alessandrodigiovanni.gestioneprenotazioni.services;
 
 import alessandrodigiovanni.gestioneprenotazioni.entities.Postazione;
 import alessandrodigiovanni.gestioneprenotazioni.entities.Prenotazione;
-import alessandrodigiovanni.gestioneprenotazioni.entities.Utente;
+
+import alessandrodigiovanni.gestioneprenotazioni.exceptions.ValidationException;
 import alessandrodigiovanni.gestioneprenotazioni.repositories.PrenotazioniRepository;
 import alessandrodigiovanni.gestioneprenotazioni.repositories.UtentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +18,18 @@ public class PrenotazioniService {
     private PrenotazioniRepository prenotazioniRepository;
 
     @Autowired private UtentiRepository utenteRepository;
-    public Prenotazione prenotazione(Utente utente, Postazione postazione, LocalDate data) {
-        // Qui sto controllando se l'utente ha già una prenotazione per quella data
-        if (!prenotazioniRepository.findByUtenteAndDataPrenotazione(utente, data).isEmpty()) {
-            throw new IllegalStateException("L'Utente ha già una prenotazione per questa data");
-        }
 
-        // Qui sto controllando se la postazione è già prenotata per quella data
-        if (!prenotazioniRepository.findByPostazioneAndDataPrenotazione(postazione, data).isEmpty()) {
-            throw new IllegalStateException("La Postazione è già prenotata per questa data");
-        }
-
-        Prenotazione prenotazione = new Prenotazione();
-        prenotazione.setUtente(utente);
-        prenotazione.setPostazione(postazione);
-        prenotazione.setDataPrenotazione(data);
-        return prenotazioniRepository.save(prenotazione);
+public void savePrenotazione(Prenotazione newPrenotazione) {
+    if (prenotazioniRepository.existsByDataPrenotazioneAndPostazione(newPrenotazione.getDataPrenotazione(), newPrenotazione.getPostazione())) {
+        throw new ValidationException("Esiste già una prenotazione per la data che hai richiesto");
     }
+    if (prenotazioniRepository.existsByUtenteAndDataPrenotazione(newPrenotazione.getUtente(), newPrenotazione.getDataPrenotazione())){
+        throw new ValidationException("L'utente ha gia una prenotazione per questa data");
+    }
+    prenotazioniRepository.save(newPrenotazione);
+    System.out.println("Prenotazione avvenuta con successo!");
+}
+
+
+
 }
