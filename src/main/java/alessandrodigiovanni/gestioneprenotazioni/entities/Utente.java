@@ -1,13 +1,10 @@
 package alessandrodigiovanni.gestioneprenotazioni.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
+@Entity
 @NoArgsConstructor
 @Table(name = "utenti")
 public class Utente {

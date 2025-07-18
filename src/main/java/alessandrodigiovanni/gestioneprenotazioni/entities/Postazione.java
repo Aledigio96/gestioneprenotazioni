@@ -4,7 +4,7 @@ import alessandrodigiovanni.gestioneprenotazioni.enums.Tipo;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
-@Component
+@Entity
 @Table(name = "postazioni")
 public class Postazione {
     @Id
